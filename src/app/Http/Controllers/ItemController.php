@@ -11,34 +11,29 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ItemController extends Controller
-{
-    public function index()
-    {
+class ItemController extends Controller {
+
+    public function index() {
         $items = Item::all();
         return view('index', compact('items'));
     }
 
-    public function mylist()
-    {
+    public function mylist() {
         $favorites = Favorite::where('user_id', Auth::id())->get();
         return view('mylist', compact('favorites'));
     }
 
-    public function detail(Request $request)
-    {
+    public function detail(Request $request) {
         $item = Item::withCount(['favorites', 'comments'])->find($request->item_id);
         return view('detail', compact('item'));
     }
 
-    public function purchase(Request $request)
-    {
+    public function purchase(Request $request) {
         $item = Item::find($request->item_id);
         return view('purchase', compact('item'));
     }
 
-    public function favorite(Request $request)
-    {
+    public function favorite(Request $request) {
         $user_id = Auth::id();
         $item_id = $request->item_id;
         $already_liked = Favorite::where('user_id', $user_id)->where('item_id', $item_id)->first();
@@ -60,22 +55,19 @@ class ItemController extends Controller
         return response()->json($param);
     }
 
-    public function mypage()
-    {
+    public function mypage() {
         $items = Item::all();
         $sell_items = Item::where('user_id', Auth::id())->get();
         return view('mypage', compact('items', 'sell_items'));
     }
 
-    public function sell()
-    {
+    public function sell() {
         $conditions = Condition::all();
         $categories = Category::all();
         return view('sell', compact('conditions', 'categories'));
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $image = $request->file('image');
         $path = $image->store('image', 'public');
         $full_path = asset('storage/' . $path);
@@ -95,15 +87,13 @@ class ItemController extends Controller
         return redirect('/mypage');
     }
 
-    public function comment(Request $request)
-    {
+    public function comment(Request $request) {
         $item = Item::withCount(['favorites', 'comments'])->find($request->item_id);
         $comments = Comment::with('user')->get();
         return view('comment', compact('item', 'comments'));
     }
 
-    public function post(Request $request)
-    {
+    public function post(Request $request) {
         Comment::create([
             'comment' => $request->comment,
             'user_id' => Auth::id(),
@@ -113,10 +103,18 @@ class ItemController extends Controller
         return back();
     }
 
-    public function delete(Request $request)
-    {
+    public function delete(Request $request) {
         Comment::find($request->comment_id)->delete();
 
         return back();
+    }
+
+    public function update(Request $request) {
+        $item = Item::find($request->item_id);
+        $item->update([
+            'is_purchased' => 1
+        ]);
+
+        return redirect('/');
     }
 }

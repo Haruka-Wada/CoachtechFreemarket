@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AddressRequest;
+use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function address(Request $request)
-    {
+    public function address(Request $request) {
         $item_id = $request->item_id;
         return view('auth.address', compact('item_id'));
     }
 
-    public function update(Request $request)
-    {
+    public function update(AddressRequest $request) {
         $user = User::find(Auth::id());
         $user->update([
             'post_code' => $request->post_code,
@@ -29,13 +29,11 @@ class UserController extends Controller
         ]));
     }
 
-    public function profile()
-    {
+    public function profile() {
         return view('auth.profile');
     }
 
-    public function store(Request $request)
-    {
+    public function store(ProfileRequest $request) {
         $user = User::find(Auth::id());
         $thumbnail = $request->file('thumbnail');
         $path = $thumbnail->store('thumbnail', 'public');

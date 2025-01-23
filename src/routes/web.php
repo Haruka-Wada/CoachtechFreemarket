@@ -36,5 +36,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/success', [StripeController::class, 'success'])->name('success');
     Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
     Route::get('/checkout-payment', [StripeController::class, 'checkout'])->name('checkout.session');
-    Route::post('/stripe/checkout/webhook', [StripeController::class, 'webhook']);
+    Route::post('/update', [ItemController::class, 'update']);
 });

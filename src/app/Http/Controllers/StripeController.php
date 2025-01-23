@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PurchaseRequest;
 use Stripe\Stripe;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class StripeController extends Controller
 {
-    public function checkout(Request $request)
+    public function checkout(PurchaseRequest $request)
     {
         Stripe::setApiKey(config('services.stripe.secret_key'));
         $stripe = new \Stripe\StripeClient(config('services.stripe.secret_key'));

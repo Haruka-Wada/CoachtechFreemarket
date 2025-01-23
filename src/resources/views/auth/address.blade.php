@@ -14,10 +14,20 @@
         <input type="hidden" name="item_id" value="{{ $item_id }}">
         <div class="main__item">
             <p>郵便番号</p>
-            <input type="number" name="post_code" value="{{ Auth::user()->post_code ? Auth::user()->post_code : old('post_code') }}">
+            <div class="form__error">
+                @error('post_code')
+                {{ $message }}
+                @enderror
+            </div>
+            <input type="text" name="post_code" value="{{ Auth::user()->post_code ? Auth::user()->post_code : old('post_code') }}">
         </div>
         <div class="main__item">
             <p>住所</p>
+            <div class="form__error">
+                @error('address')
+                {{ $message }}
+                @enderror
+            </div>
             <input type="text" name="address" value="{{ Auth::user()->address ? Auth::user()->address : old('address') }}">
         </div>
         <div class="main__item">

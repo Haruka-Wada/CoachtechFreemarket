@@ -21,6 +21,7 @@
             </div>
         </div>
         <div class="item__form">
+            <input type="hidden" name="item_id" value="{{ $item->id }}">
             <div class="form__label-payment">
                 <p>支払い方法</p>
                 <select name="payment">
@@ -61,10 +62,20 @@
                 <p class="purchase__label-item" id="payment"></p>
             </div>
         </div>
+        @if (count($errors) > 0)
+        <ul class="error">
+            @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+            @endforeach
+        </ul>
+        @endif
         <div class="purchase__button">
             <form action="{{ route('checkout.session') }}" method="GET">
                 @csrf
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
+                <input type="hidden" name="post_code" value="{{ Auth::user()->post_code }}">
+                <input type="hidden" name="address" value="{{ Auth::user()->address }}">
+                <input type="hidden" name="payment" value="">
                 <button class="purchase__button-btn">購入する</button>
             </form>
         </div>
@@ -74,9 +85,11 @@
 <script type="text/javascript">
     $(function() {
         const payment = $('#payment');
-        $('[name=payment]').change(function() {
-            const selectedPayment = $('[name=payment] option:selected').text();
+        $('select').change(function() {
+            const selectedPayment = $('[name=payment] option:selected').html();
+            const paymentValue = $('[name=payment] option:selected').val();
             payment.text(selectedPayment);
+            $('input[name="payment"]').val(paymentValue);
         })
     })
 </script>

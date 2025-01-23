@@ -7,6 +7,10 @@
     width: 50%;
 }
 
+.sold img {
+    filter: grayscale(150);
+}
+
 .item__image {
     width: 80%;
     margin: 0 auto;
@@ -79,6 +83,10 @@
     border: none;
     border-radius: 4px;
     margin: 50px 0;
+}
+
+.sold button {
+    background-color: #D9D9D9;
 }
 
 .item__index {

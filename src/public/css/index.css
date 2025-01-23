@@ -35,6 +35,26 @@
     width: 20%;
 }
 
+.sold {
+    position: relative;
+}
+
+.sold span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: red;
+    font-size: 14px;
+    background-color: white;
+}
+
+
+.sold img{
+    filter: grayscale(150);
+}
+
 .main__form {
     width: 100%;
 }

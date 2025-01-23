@@ -6,8 +6,8 @@
 
 @section('main')
 <div class="main__title">
-        <h2>プロフィール設定</h2>
-    </div>
+    <h2>プロフィール設定</h2>
+</div>
 <div class="main__contents">
     <form action="/mypage/profile" method="post" enctype="multipart/form-data">
         @csrf
@@ -24,14 +24,29 @@
         </div>
         <div class="main__item">
             <p>ユーザー名</p>
+            <div class="form__error">
+                @error('name')
+                {{ $message }}
+                @enderror
+            </div>
             <input type="text" name="name" value="{{ Auth::user()->name ? Auth::user()->name : old('name') }}">
         </div>
         <div class="main__item">
             <p>郵便番号</p>
+            <div class="form__error">
+                @error('post_code')
+                {{ $message }}
+                @enderror
+            </div>
             <input type="number" name="post_code" value="{{ Auth::user()->post_code ? Auth::user()->post_code : old('post_code') }}">
         </div>
         <div class="main__item">
             <p>住所</p>
+            <div class="form__error">
+                @error('address')
+                {{ $message }}
+                @enderror
+            </div>
             <input type="text" name="address" value="{{ Auth::user()->address ? Auth::user()->address : old('address') }}">
         </div>
         <div class="main__item">

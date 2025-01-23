@@ -7,9 +7,15 @@
 @section('main')
 <div class="main__container">
     <div class="item__wrapper">
+        @if($item->is_purchased === 1)
+        <div class="item__image sold">
+            <img src="{{ $item->image }}" alt="{{ $item->name }}">
+        </div>
+        @else
         <div class="item__image">
             <img src="{{ $item->image }}" alt="{{ $item->name }}">
         </div>
+        @endif
     </div>
     <div class="item__wrapper">
         <div class="item__detail">
@@ -57,12 +63,18 @@
                     <p class="item__icon-comment__counter">{{ $item->comments_count }}</p>
                 </div>
             </div>
+            @if($item->is_purchased === 1)
+            <div class="item__purchase sold">
+                    <button>sold out</button>
+            </div>
+            @else
             <div class="item__purchase">
                 <form action="/purchase/" method="get">
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
                     <button>購入する</button>
                 </form>
             </div>
+            @endif
             <div class="item__index">
                 <h2>商品説明</h2>
             </div>
