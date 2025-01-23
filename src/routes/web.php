@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StripeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [ItemController::class, 'index']);
+Route::get('/item/comment/{item_id?}', [ItemController::class, 'comment']);
+Route::get('/item/{item_id?}', [ItemController::class, 'detail']);
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/mylist', [ItemController::class, 'mylist']);
+    Route::get('/purchase/address/{item_id?}', [UserController::class, 'address']);
+    Route::post('/purchase/address', [UserController::class, 'update']);
+    Route::get('/purchase/{item_id?}', [ItemController::class, 'purchase'])->name('item.purchase');
+    Route::post('/favorite', [ItemController::class, 'favorite']);
+    Route::get('/mypage', [ItemController::class, 'mypage']);
+    Route::get('/mypage/profile', [UserController::class, 'profile']);
+    Route::post('/mypage/profile', [UserController::class, 'store']);
+    Route::get('/sell', [ItemController::class, 'sell']);
+    Route::post('/sell', [ItemController::class, 'store']);
+    Route::post('/comment', [ItemController::class, 'post']);
+    Route::post('/comment/delete', [ItemController::class, 'delete']);
+    Route::get('/success', [StripeController::class, 'success'])->name('success');
+    Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
+    Route::get('/checkout-payment', [StripeController::class, 'checkout'])->name('checkout.session');
+    Route::post('/stripe/checkout/webhook', [StripeController::class, 'webhook']);
 });
