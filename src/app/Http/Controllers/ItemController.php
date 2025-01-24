@@ -89,7 +89,7 @@ class ItemController extends Controller {
 
     public function comment(Request $request) {
         $item = Item::withCount(['favorites', 'comments'])->find($request->item_id);
-        $comments = Comment::with('user')->get();
+        $comments = Comment::with('user')->where('item_id', $item->id)->get();
         return view('comment', compact('item', 'comments'));
     }
 
@@ -109,12 +109,4 @@ class ItemController extends Controller {
         return back();
     }
 
-    public function update(Request $request) {
-        $item = Item::find($request->item_id);
-        $item->update([
-            'is_purchased' => 1
-        ]);
-
-        return redirect('/');
-    }
 }

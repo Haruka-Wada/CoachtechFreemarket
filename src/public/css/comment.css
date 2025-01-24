@@ -115,6 +115,7 @@
     color: #0073CC;
     border: none;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .comment-text {
