@@ -7,8 +7,9 @@ use App\Models\Condition;
 use App\Models\Item;
 use App\Models\Favorite;
 use App\Models\Comment;
-use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Requests\SellRequest;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller {
@@ -58,7 +59,8 @@ class ItemController extends Controller {
     public function mypage() {
         $items = Item::all();
         $sell_items = Item::where('user_id', Auth::id())->get();
-        return view('mypage', compact('items', 'sell_items'));
+        $orders = Order::where('user_id', Auth::id())->get();
+        return view('mypage', compact('items', 'sell_items', 'orders'));
     }
 
     public function sell() {
@@ -67,7 +69,7 @@ class ItemController extends Controller {
         return view('sell', compact('conditions', 'categories'));
     }
 
-    public function store(Request $request) {
+    public function store(SellRequest $request) {
         $image = $request->file('image');
         $path = $image->store('image', 'public');
         $full_path = asset('storage/' . $path);

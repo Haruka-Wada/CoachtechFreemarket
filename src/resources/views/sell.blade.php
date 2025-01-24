@@ -15,6 +15,11 @@
             <div class="item__label">
                 <p>商品画像</p>
             </div>
+            <div class="error">
+                @error('image')
+                {{ $message }}
+                @enderror
+            </div>
             <div class="item__data-file">
                 <button type="button" class="upload__button">画像を選択する</button>
                 <input type="file" class="item__data-upload" name="image">
@@ -28,10 +33,15 @@
                 <p>ブランド名</p>
             </div>
             <div class="item__data">
-                <input type="text" class="item__data-input" name="brand">
+                <input type="text" class="item__data-input" name="brand" value="{{ old('brand') }}">
             </div>
             <div class="item__label">
                 <p>カテゴリー</p>
+            </div>
+            <div class="error">
+                @error('category_ids')
+                {{ $message }}
+                @enderror
             </div>
             <div class="item__data">
                 <div class="item__data__checkbox-toggle" id="checkbox-toggle">
@@ -40,7 +50,7 @@
                 <div class="item__data__checkboxes" id="checkboxes">
                     @foreach($categories as $category)
                     <label class="item__data__checkbox-label">
-                        <input type="checkbox" name="category_ids[]" value="{{ $category->id }}">
+                        <input type="checkbox" name="category_ids[]" value="{{ $category->id }}" {{ in_array($category->id, (array)old('category_ids')) ? 'checked' : '' }}>
                         <span>{{ $category->name }}</span>
                     </label>
                     @endforeach
@@ -49,11 +59,16 @@
             <div class="item__label">
                 <p>商品の状態</p>
             </div>
+            <div class="error">
+                @error('condition')
+                {{ $message }}
+                @enderror
+            </div>
             <div class="item__data select">
                 <select name="condition_id" id="condition">
                     <option value="" selected hidden>選択してください</option>
                     @foreach($conditions as $condition)
-                    <option value="{{ $condition->id }}">{{ $condition->name }}</option>
+                    <option value="{{ $condition->id }}" @if(old('condition_id')==$condition->id) selected @endif>{{ $condition->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -65,14 +80,24 @@
             <div class="item__label">
                 <p>商品名</p>
             </div>
+            <div class="error">
+                @error('name')
+                {{ $message }}
+                @enderror
+            </div>
             <div class="item__data">
-                <input type="text" class="item__data-input" name="name">
+                <input type="text" class="item__data-input" name="name" value="{{ old('name') }}">
             </div>
             <div class="item__label">
                 <p>商品の説明</p>
             </div>
+            <div class="error">
+                @error('description')
+                {{ $message }}
+                @enderror
+            </div>
             <div class="item__data-textarea">
-                <textarea name="description"></textarea>
+                <textarea name="description">{{ old('description') }}</textarea>
             </div>
         </div>
         <div class="item__contents">
@@ -82,8 +107,13 @@
             <div class="item__label">
                 <p>販売価格</p>
             </div>
+            <div class="error">
+                @error('price')
+                {{ $message }}
+                @enderror
+            </div>
             <div class="item__data price">
-                <input type="number" class="item__data-input" name="price" value="" placeholder="¥">
+                <input type="text" class="item__data-input" name="price" value="{{ old('price') }}" placeholder="¥">
             </div>
         </div>
         <div class="item__button">

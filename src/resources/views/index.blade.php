@@ -16,18 +16,7 @@
 
 <div class="main__container">
     @foreach($items as $item)
-    @if($item->is_purchased === 1)
-    <div class="main__item sold">
-        <form action="/item/" method="get" class="main__form">
-            <input type="hidden" name="item_id" value="{{ $item->id }}">
-            <button class="main__item-button">
-                <img src="{{ $item->image}}" alt="{{ $item->name }}">
-            </button>
-            <span>sold out</span>
-        </form>
-    </div>
-    @else
-    <div class="main__item">
+    <div class="main__item {{ $item->is_purchased }}">
         <form action="/item/" method="get" class="main__form">
             <input type="hidden" name="item_id" value="{{ $item->id }}">
             <button class="main__item-button">
@@ -35,7 +24,8 @@
             </button>
         </form>
     </div>
-    @endif
     @endforeach
 </div>
+
+<script src="{{ asset('js/purchased.js') }}"></script>
 @endsection

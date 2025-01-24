@@ -28,24 +28,26 @@
     <div class="item__contents" id="tabbody">
         <div class="item__content active">
             @foreach($sell_items as $item)
-            <div class="item__image">
+            <div class="main__item {{ $item->is_purchased }}">
                 <form action="/item/" method="get" class="item__form">
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
                     <button class="item__image-button">
-                        <img src="{{ $item->image}}" alt="{{ $item->name }}">
+                        <img src="{{ $item->image }}" alt="{{ $item->name }}">
                     </button>
+                    <span class="sold-text"></span>
                 </form>
             </div>
             @endforeach
         </div>
         <div class="item__content">
-            @foreach($items as $item)
-            <div class="item__image">
+            @foreach($orders as $order)
+            <div class="main__item {{ $order->item->is_purchased }}">
                 <form action="/item/" method="get" class="item__form">
-                    <input type="hidden" name="item_id" value="{{ $item->id }}">
+                    <input type="hidden" name="item_id" value="{{ $order->item->id }}">
                     <button class="item__image-button">
-                        <img src="{{ $item->image}}" alt="{{ $item->name }}">
+                        <img src="{{ $order->item->image }}" alt="{{ $order->item->name }}">
                     </button>
+                    <span class="sold-text"></span>
                 </form>
             </div>
             @endforeach
@@ -53,6 +55,7 @@
     </div>
 </div>
 
+<script src="{{ asset('js/purchased.js') }}"></script>
 <script type="text/javascript">
     $(function() {
         $('.item__tab li').click(function() {
