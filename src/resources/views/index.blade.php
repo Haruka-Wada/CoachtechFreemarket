@@ -16,13 +16,14 @@
 
 <div class="main__container">
     @foreach($items as $item)
-    <div class="main__item {{ $item->is_purchased }}">
+    <div class="main__item" data-purchased="{{ $item->is_purchased }}">
         <form action="/item/" method="get" class="main__form">
             <input type="hidden" name="item_id" value="{{ $item->id }}">
             <button class="main__item-button">
                 <img src="{{ $item->image}}" alt="{{ $item->name }}">
             </button>
         </form>
+        <span></span>
     </div>
     @endforeach
 </div>

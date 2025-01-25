@@ -18,38 +18,48 @@
             <div class="header__logo">
                 <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="coachtechフリマ"></a>
             </div>
-            <div class="header__search">
-                <form action="/search" method="post" class="header__search-form">
-                    @csrf
-                    <input type="text" name="keyword" placeholder="なにをお探しですか?">
-                </form>
+            <div class="header__nav-container">
+                <div class="header__search">
+                    <form action="/search" method="post" class="header__search-form">
+                        @csrf
+                        <input type="text" name="keyword" placeholder="なにをお探しですか?">
+                    </form>
+                </div>
+                <div class="header__nav">
+                    @if(Auth::check())
+                    <form action="/logout" method="post" class="header__nav__item">
+                        @csrf
+                        <button>ログアウト</button>
+                    </form>
+                    <div class="header__nav__item">
+                        <button onclick="location.href='/mypage'">マイページ</button>
+                    </div>
+                    @else
+                    <div class="header__nav__item">
+                        <button onclick="location.href='/login'">ログイン</button>
+                    </div>
+                    <div class="header__nav__item">
+                        <button onclick="location.href='/register'">会員登録</button>
+                    </div>
+                    @endif
+                    <div class="header__nav__sell">
+                        <button onclick="location.href='/sell'">出品</button>
+                    </div>
+                </div>
             </div>
-            <div class="header__nav">
-                @if(Auth::check())
-                <form action="/logout" method="post" class="header__nav__item">
-                    @csrf
-                    <button>ログアウト</button>
-                </form>
-                <div class="header__nav__item">
-                    <button onclick="location.href='/mypage'">マイページ</button>
-                </div>
-                @else
-                <div class="header__nav__item">
-                    <button onclick="location.href='/login'">ログイン</button>
-                </div>
-                <div class="header__nav__item">
-                    <button onclick="location.href='/register'">会員登録</button>
-                </div>
-                @endif
-                <div class="header__nav__sell">
-                    <button onclick="location.href='/sell'">出品</button>
-                </div>
-            </div>
+            <button type="button" class="nav-button" onclick="navFunc()">
+            </button>
         </div>
     </header>
     <div class="main">
         @yield('main')
     </div>
+
+    <script type="text/javascript">
+        function navFunc() {
+            document.querySelector('html').classList.toggle('open')
+        }
+    </script>
 </body>
 
 </html>

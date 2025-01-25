@@ -1,6 +1,5 @@
-const div = $('.1');
-    if (div) {
-        div.attr('class', 'main__item 1 sold');
-        let span = div.find('span');
-        span.html('sold out');
-    }
+$('div').find("[data-purchased='1']").each(function() {
+    $(this).attr('class', 'main__item sold');
+    let span = $(this).find('span');
+    span.html('sold out');
+});
