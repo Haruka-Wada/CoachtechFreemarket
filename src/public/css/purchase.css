@@ -79,7 +79,7 @@
 }
 
 .purchase__contents {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
     border: 1px solid #5F5F5F
 }
@@ -87,11 +87,11 @@
 .purchase__label {
     display: flex;
     margin: 40px 20px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .purchase__label-index {
-    width: 50%;
+    width: 43%;
 }
 
 .price {
@@ -103,7 +103,7 @@
 }
 
 .purchase__button {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
 
@@ -128,4 +128,103 @@
 .error li {
     list-style: none;
     padding: 5px;
+}
+
+@media screen and (max-width: 768px){
+    .main__container {
+        display: block;
+    }
+
+    .main__wrapper {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .item__form {
+        margin: 30px 30px;
+    }
+
+    .form__label-payment {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .form__label-payment p {
+        width: 40%;
+        margin: 0;
+    }
+
+    .form__label-payment select {
+        width: 200px;
+        margin: 0;
+    }
+
+    .form__label-purchase p {
+        width: 40%;
+        margin: 30px 0 10px;
+    }
+
+    .form__label-purchase button {
+        margin-right: 0;
+        margin: 30px 0 10px;
+    }
+
+    .purchase__wrapper {
+        width: 100%;
+    }
+
+    .purchase__label {
+        margin: 30px 20px;
+    }
+
+    .price {
+        margin: 50px 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .item__container {
+        display: block;
+        margin: 0;
+    }
+
+    .item__image {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .item__detail-name {
+        margin: 10px 0;
+    }
+
+    .item__form {
+        margin: 30px 0;
+    }
+
+    .form__label-payment {
+        display: block;
+    }
+
+    .form__label-payment p {
+        width: 80%;
+        margin-bottom: 10px;
+    }
+
+    .form__label-payment select {
+        margin-left: 20px;
+    }
+
+    .form__address p {
+        margin-left: 20px;
+    }
+
+    .purchase__label {
+        display: block;
+    }
+
+    .purchase__label-item {
+        text-align: right;
+        margin-top: 5px;
+    }
 }

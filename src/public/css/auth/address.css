@@ -29,6 +29,7 @@
     font-size: 24px;
     margin-bottom: 80px;
     padding: 0 10px;
+    box-sizing: border-box;
 }
 
 .update__button {
@@ -49,4 +50,24 @@
 .form__error {
     font-size: 16px;
     color: red;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-button {
+        display: none;
+    }
+
+    .main__contents {
+        width: 70%;
+    }
+
+    .main__contents input {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main__contents {
+        width: 80%;
+    }
 }

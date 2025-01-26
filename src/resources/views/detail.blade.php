@@ -6,16 +6,11 @@
 
 @section('main')
 <div class="main__container">
-    <div class="item__wrapper">
-        @if($item->is_purchased === 1)
-        <div class="item__image sold">
+    <div class="item__wrapper image__wrapper">
+        <div class="item__image" data-purchased="{{ $item->is_purchased }}">
             <img src="{{ $item->image }}" alt="{{ $item->name }}">
+            <span></span>
         </div>
-        @else
-        <div class="item__image">
-            <img src="{{ $item->image }}" alt="{{ $item->name }}">
-        </div>
-        @endif
     </div>
     <div class="item__wrapper">
         <div class="item__detail">
@@ -103,4 +98,5 @@
 </div>
 
 <script src="{{ asset('js/favorite.js') }}"></script>
+<script src="{{ asset('js/purchased.js') }}"></script>
 @endsection

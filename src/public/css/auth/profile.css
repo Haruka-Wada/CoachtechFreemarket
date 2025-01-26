@@ -39,11 +39,12 @@
     display: flex;
     align-items: center;
     margin: 30px;
+    margin-right: 0;
 }
 
 .main__img-form-button {
     height: 60px;
-    font-size: 26px;
+    font-size: 20px;
     font-weight: bold;
     color: #FF5555;
     padding: 10px 20px;
@@ -87,4 +88,36 @@
 .form__error {
     font-size: 16px;
     color: red;
+}
+
+@media screen and (max-width:768px) {
+    .main__title {
+        margin: 50px auto;
+    }
+
+    .main__contents {
+        width: 80%;
+    }
+
+    .main__img-form-button {
+        font-size: 18px;
+    }
+
+    .main__item input {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .main__img {
+        display: block;
+    }
+
+    .main__img-thumbnail {
+        margin: 0 auto;
+    }
+
+    .main__img-form-button {
+        width: 100%;
+    }
 }

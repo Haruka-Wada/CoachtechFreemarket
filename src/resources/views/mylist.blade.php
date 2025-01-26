@@ -16,14 +16,17 @@
 
 <div class="main__container">
     @foreach($favorites as $favorite)
-    <div class="main__item">
+    <div class="main__item" data-purchased="{{ $favorite->item->is_purchased }}">
         <form action="/item/" method="get" class="main__form">
             <input type="hidden" name="item_id" value="{{ $favorite->item->id }}">
             <button class="main__item-button">
                 <img src="{{ $favorite->item->image}}" alt="{{ $favorite->item->name }}">
             </button>
         </form>
+        <span></span>
     </div>
     @endforeach
 </div>
+
+<script src="{{ asset('js/purchased.js') }}"></script>
 @endsection

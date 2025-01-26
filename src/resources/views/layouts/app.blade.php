@@ -57,7 +57,7 @@
 
     <script type="text/javascript">
         function navFunc() {
-            document.querySelector('html').classList.toggle('open')
+            $('.header__nav, .header__nav-container, .nav-button').toggleClass('open')
         }
     </script>
 </body>

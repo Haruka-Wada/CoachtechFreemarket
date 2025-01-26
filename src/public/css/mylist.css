@@ -33,6 +33,22 @@
 
 .main__item {
     width: 20%;
+    position: relative;
+}
+
+.sold span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: red;
+    font-size: 14px;
+    background-color: white;
+}
+
+.sold img {
+    filter: grayscale(150);
 }
 
 .main__form {
@@ -56,4 +72,31 @@
     display: block;
     content: '';
     flex-grow: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .main__item {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+
+    .tab {
+        padding: 50px 50px 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .tab {
+        padding: 20px 50px 0;
+    }
+
+    .tab li {
+        font-size: 16px;
+        margin-right: 30px;
+        padding-top: 10px;
+    }
+
+    .main__item {
+        width: 100%;
+    }
 }

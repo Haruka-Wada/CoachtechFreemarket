@@ -7,8 +7,9 @@
 @section('main')
 <div class="main__container">
     <div class="item__wrapper">
-        <div class="item__image">
+        <div class="item__image" data-purchased="{{ $item->is_purchased }}">
             <img src="{{ $item->image }}" alt="{{ $item->name }}">
+            <span></span>
         </div>
     </div>
     <div class="item__wrapper">
@@ -63,7 +64,7 @@
                 <div class="comment-user-myself">
                     <div class="comment-user-thumbnail">
                         @if(Auth::user()->thumbnail)
-                            <img src="{{ Auth::user()->thumbnail }}" alt="{{ Auth::user()->name }}">
+                        <img src="{{ Auth::user()->thumbnail }}" alt="{{ Auth::user()->name }}">
                         @endif
                     </div>
                     <div class="comment-user-name">
@@ -79,7 +80,7 @@
                 <div class="comment-user">
                     <div class="comment-user-thumbnail">
                         @if($comment->user->thumbnail)
-                            <img src="{{ $comment->user->thumbnail }}" alt="{{ $comment->user->name }}">
+                        <img src="{{ $comment->user->thumbnail }}" alt="{{ $comment->user->name }}">
                         @endif
                     </div>
                     <div class="comment-user-name">
@@ -110,4 +111,5 @@
 </div>
 
 <script src="{{ asset('js/favorite.js') }}"></script>
+<script src="{{ asset('js/purchased.js') }}"></script>
 @endsection

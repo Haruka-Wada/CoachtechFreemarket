@@ -80,6 +80,7 @@
 
 .main__item {
     width: 25%;
+    position: relative;
 }
 
 .item__form {
@@ -106,10 +107,6 @@
     flex-grow: 1;
 }
 
-.sold {
-    position: relative;
-}
-
 .sold span {
     position: absolute;
     top: 50%;
@@ -123,4 +120,65 @@
 
 .sold img {
     filter: grayscale(150);
+}
+
+@media screen and (max-width:768px) {
+    .profile__wrapper {
+        display: block;
+    }
+
+    .profile__contents {
+        margin-bottom: 20px;
+    }
+
+    .profile__contents-edit {
+        text-align: center;
+    }
+
+    .item__tab {
+        width: 100%;
+        padding: 0 40px 10px;
+        box-sizing: border-box;
+    }
+
+    .item__tab li {
+        margin-left: 50px;
+        margin-right: 0;
+        font-size: 20px;
+    }
+
+    .item__content.active {
+        margin: 50px 30px;
+    }
+    .main__item {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .profile__contents {
+        display: block;
+    }
+
+    .profile__name {
+        margin: 10px 20px;
+    }
+
+    .profile__contents-edit {
+        font-size: 20px;
+    }
+
+    .item__tab {
+        padding: 0 20px 10px;
+    }
+
+    .item__tab li {
+        font-size: 18px;
+        margin: 0 10px;
+    }
+
+    .main__item {
+        width: 100%;
+    }
 }
