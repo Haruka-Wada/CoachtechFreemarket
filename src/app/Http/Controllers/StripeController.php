@@ -6,17 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PurchaseRequest;
 use Stripe\Stripe;
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 
 class StripeController extends Controller
 {
-    public function checkout(PurchaseRequest $request)
-    {
-        Stripe::setApiKey(config('services.stripe.secret_key'));
+    public function checkout(PurchaseRequest $request) {
+        $user = User::find(Auth::id());
+        $stripeCustomer = $user->createOrGetStripeCustomer();
         $stripe = new \Stripe\StripeClient(config('services.stripe.secret_key'));
         $item = Item::find($request->item_id);
         $checkout_session = $stripe->checkout->sessions->create([
+            'customer' => $stripeCustomer->id,
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'jpy',
@@ -28,6 +30,17 @@ class StripeController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
+            'payment_method_types' => [
+                    $request->payment
+                ],
+            'payment_method_options' => [
+                'customer_balance' => [
+                    'funding_type' => 'bank_transfer',
+                    'bank_transfer' => [
+                    'type' => 'jp_bank_transfer',
+                        ],
+                    ],
+                ],
             'metadata' => [
                 'item_id' => $request->item_id,
                 'post_code' => $request->post_code,

@@ -7,7 +7,7 @@
 @section('main')
 <div class="main__container">
     <div class="main__text">
-        <p>購入できました！</p>
+        <p>購入しました！</p>
     </div>
 </div>
 @endsection

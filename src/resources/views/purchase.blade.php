@@ -27,8 +27,8 @@
                 <select name="payment">
                     <option disabled selected>選択してください</option>
                     <option value="card">クレジットカード</option>
-                    <option value="convenience_store">コンビニ</option>
-                    <option value="bank">銀行振込</option>
+                    <option value="konbini">コンビニ</option>
+                    <option value="customer_balance">銀行振込</option>
                 </select>
             </div>
             <div class="form__label-purchase">
