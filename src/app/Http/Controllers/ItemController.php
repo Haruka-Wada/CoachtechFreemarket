@@ -19,6 +19,17 @@ class ItemController extends Controller {
         return view('index', compact('items'));
     }
 
+    public function search(Request $request) {
+        $items = Item::query()
+            ->when(request('keyword'), function($query){
+                $query->where('name', 'like', '%' . request('keyword') . '%')
+                    ->orWhereHas('categories', function($query) {
+                        $query->where('categories.name', 'like', '%'.request('keyword').'%');
+                    });
+            })->get();
+        return view('index', compact('items'));
+    }
+
     public function mylist() {
         $favorites = Favorite::where('user_id', Auth::id())->get();
         return view('mylist', compact('favorites'));

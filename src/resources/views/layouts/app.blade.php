@@ -20,8 +20,7 @@
             </div>
             <div class="header__nav-container">
                 <div class="header__search">
-                    <form action="/search" method="post" class="header__search-form">
-                        @csrf
+                    <form action="/search" method="get" class="header__search-form">
                         <input type="text" name="keyword" placeholder="なにをお探しですか?">
                     </form>
                 </div>

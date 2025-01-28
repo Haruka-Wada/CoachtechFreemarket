@@ -16,6 +16,7 @@ use App\Http\Controllers\StripeController;
 */
 
 Route::get('/', [ItemController::class, 'index']);
+Route::get('/search', [ItemController::class, 'search']);
 Route::get('/item/comment/{item_id?}', [ItemController::class, 'comment']);
 Route::get('/item/{item_id?}', [ItemController::class, 'detail']);
 
