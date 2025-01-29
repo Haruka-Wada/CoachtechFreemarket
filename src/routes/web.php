@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\AdminController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,4 +40,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
     Route::get('/checkout-payment', [StripeController::class, 'checkout'])->name('checkout.session');
     Route::post('/update', [ItemController::class, 'update']);
+});
+
+Route::prefix('admin')->group(function () {
+    Route::middleware('auth:administrators')->group(function () {
+        Route::get('/', [AdminController::class, 'index']);
+        Route::post('/logout', [AdminController::class, 'logout']);
+    });
+    Route::get('/login', [AdminController::class, 'loginView'])->name('admin.login');
+    Route::post('/login', [AdminController::class, 'login']);
 });
