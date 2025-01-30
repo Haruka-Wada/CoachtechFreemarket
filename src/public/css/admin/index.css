@@ -1,0 +1,46 @@
+.main__title {
+    font-size: 36px;
+    text-align: center;
+    margin: 80px auto;
+}
+
+.main__contents {
+    width: 90%;
+    margin: 0 auto;
+    overflow-x: scroll;
+}
+
+.main__user-table {
+    width: 100%;
+    min-width: 600px;
+}
+
+.main__user-table th {
+    font-size: 18px;
+    text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+}
+
+.main__user-table__row {
+    border-bottom: 1px solid gray;
+}
+
+.main__user-table td {
+    font-size: 16px;
+    padding: 20px 0;
+    vertical-align: middle;
+}
+
+.main__user-table form {
+    text-align: center;
+}
+
+.main__user-table__button {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}

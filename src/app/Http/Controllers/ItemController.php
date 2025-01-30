@@ -16,6 +16,7 @@ class ItemController extends Controller {
 
     public function index() {
         $items = Item::all();
+
         return view('index', compact('items'));
     }
 
@@ -27,21 +28,27 @@ class ItemController extends Controller {
                         $query->where('categories.name', 'like', '%'.request('keyword').'%');
                     });
             })->get();
+
         return view('index', compact('items'));
     }
 
     public function mylist() {
         $favorites = Favorite::where('user_id', Auth::id())->get();
+
         return view('mylist', compact('favorites'));
     }
 
+    //詳細画面
     public function detail(Request $request) {
         $item = Item::withCount(['favorites', 'comments'])->find($request->item_id);
+
         return view('detail', compact('item'));
     }
 
+    //購入画面
     public function purchase(Request $request) {
         $item = Item::find($request->item_id);
+
         return view('purchase', compact('item'));
     }
 
@@ -74,12 +81,15 @@ class ItemController extends Controller {
         return view('mypage', compact('items', 'sell_items', 'orders'));
     }
 
+    //出品ページ
     public function sell() {
         $conditions = Condition::all();
         $categories = Category::all();
+
         return view('sell', compact('conditions', 'categories'));
     }
 
+    //出品登録
     public function store(SellRequest $request) {
         $image = $request->file('image');
         $path = $image->store('image', 'public');
@@ -100,12 +110,15 @@ class ItemController extends Controller {
         return redirect('/mypage');
     }
 
+    //コメントページ
     public function comment(Request $request) {
         $item = Item::withCount(['favorites', 'comments'])->find($request->item_id);
         $comments = Comment::with('user')->where('item_id', $item->id)->get();
+
         return view('comment', compact('item', 'comments'));
     }
 
+    //コメント投稿
     public function post(Request $request) {
         Comment::create([
             'comment' => $request->comment,
@@ -116,6 +129,7 @@ class ItemController extends Controller {
         return back();
     }
 
+    //コメント削除
     public function delete(Request $request) {
         Comment::find($request->comment_id)->delete();
 

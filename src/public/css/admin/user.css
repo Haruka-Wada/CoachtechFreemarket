@@ -1,0 +1,73 @@
+.main__title {
+    font-size: 36px;
+    text-align: center;
+    margin: 80px auto;
+}
+
+.main__contents {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.main__user-detail {
+    width: 100%;
+}
+
+.main__user-detail__text {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+
+.main__user-detail__text dt {
+    font-size: 18px;
+    width: 30%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid gray;
+}
+
+.main__user-detail__text dd {
+    width: 70%;
+    font-size: 18px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid gray;
+}
+
+.main__user-detail__sell-list, .main__user-detail__purchase-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main__user-detail__sell-list__item, .main__user-detail__purchase-list__item {
+    width: 40%;
+    margin: 10px;
+    display: flex;
+}
+
+.main__user-detail__sell-list__image, .main__user-detail__purchase-list__image {
+    width: 30%;
+}
+
+.main__user-detail__sell-list__item img {
+    width: 100%;
+}
+
+.main__user-detail__purchase-list__item img {
+    width: 100%;
+}
+
+.main__user-detail__sell-list__item p {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.main__user-detail__purchase-list__item p {
+    font-size: 14px;
+    padding: 5px 10px;
+}
