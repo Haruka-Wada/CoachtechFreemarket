@@ -7,10 +7,12 @@
 .main__contents {
     width: 90%;
     margin: 0 auto;
+    overflow-x: scroll;
 }
 
 .main__user-detail {
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .main__user-detail__text {
@@ -20,6 +22,8 @@
     flex-wrap: wrap;
     border: 1px solid gray;
     border-radius: 4px;
+    min-width: 400px;
+    box-sizing: border-box;
 }
 
 .main__user-detail__text dt {
@@ -28,6 +32,7 @@
     padding: 10px;
     box-sizing: border-box;
     border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
 }
 
 .main__user-detail__text dd {
@@ -45,29 +50,92 @@
 }
 
 .main__user-detail__sell-list__item, .main__user-detail__purchase-list__item {
-    width: 40%;
-    margin: 10px;
+    width: 50%;
+    padding: 5px 10px;
     display: flex;
+    box-sizing: border-box;
 }
 
 .main__user-detail__sell-list__image, .main__user-detail__purchase-list__image {
+    width: 40%;
+}
+
+.main__user-detail__sell-list__item img, .main__user-detail__purchase-list__item img, .main__user-detail__comment-list__item img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.main__user-detail__sell-list__item p, .main__user-detail__purchase-list__item p, .main__user-detail__comment-list__item p{
+    font-size: 14px;
+    padding: 5px 10px;
+    overflow-wrap: anywhere;
+}
+
+.main__user-detail__sell-list__button, .main__user-detail__purchase-list__button, .main__user-detail__comment-list__button{
+    padding: 0;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    contain: content;
+
+}
+
+.main__user-detail__comment-list__item {
+    display: flex;
+    width: 100%;
+}
+
+.main__user-detail__comment-list__image {
     width: 30%;
 }
 
-.main__user-detail__sell-list__item img {
+.main__user-detail__comment-list__text {
     width: 100%;
 }
 
-.main__user-detail__purchase-list__item img {
-    width: 100%;
+.main__user-detail__comment-list__index{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.main__user-detail__sell-list__item p {
-    font-size: 14px;
-    padding: 5px 10px;
+.main__user-detail__comment-list__index button {
+    margin: 0 5px;
+    background-color: white;
+    border: none;
+    color: #0073CC;
+    cursor: pointer;
 }
 
-.main__user-detail__purchase-list__item p {
-    font-size: 14px;
-    padding: 5px 10px;
+@media screen and (max-width: 768px){
+    .main__user-detail__text dt,
+    .main__user-detail__text dd {
+        font-size: 16px;
+    }
+
+    .main__user-detail__text {
+        width: 100%;
+    }
+
+    .main__user-detail__sell-list__item,
+    .main__user-detail__purchase-list__item {
+        width: 100%;
+    }
+
+    .main__user-detail__sell-list__image,
+    .main__user-detail__purchase-list__image {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main__user-detail__text dt,
+    .main__user-detail__text dd {
+        font-size: 14px;
+    }
+
+    .main__user-detail__comment-list__index button {
+        margin: 0;
+        padding: 0;
+    }
 }

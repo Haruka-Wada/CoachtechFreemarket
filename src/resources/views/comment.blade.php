@@ -89,7 +89,7 @@
                 </div>
                 @endif
                 <div class="comment-text">
-                    {{ $comment->comment }}
+                    <p>{{ $comment->comment }}</p>
                 </div>
                 @endforeach
             </div>

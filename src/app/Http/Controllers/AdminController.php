@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Comment;
 
 
 class AdminController extends Controller
@@ -44,5 +45,13 @@ class AdminController extends Controller
         $user = User::find($request->user_id);
 
         return view('admin.user', compact('user'));
+    }
+
+    //コメント削除
+    public function delete(Request $request) {
+        $comment = Comment::find($request->comment_id);
+        $comment->delete();
+
+        return back();
     }
 }

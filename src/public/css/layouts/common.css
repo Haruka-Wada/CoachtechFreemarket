@@ -188,10 +188,14 @@ html {
     }
 
     .header__nav__item button {
-        font-size: 16px;
-        margin: 20px 0;
+        font-size: 14px;
+        margin-top: 20px;
         transition: 0.5s ease-in-out;
         background-color: inherit;
+    }
+
+    .header__nav__sell button {
+        margin-top: 20px;
     }
 }
 

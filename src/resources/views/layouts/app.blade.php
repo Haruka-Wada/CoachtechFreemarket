@@ -24,8 +24,11 @@
                         <input type="text" name="keyword" placeholder="なにをお探しですか?">
                     </form>
                 </div>
-            <div class="header__nav">
+                <div class="header__nav">
                     @if(Auth::guard('administrators')->check())
+                    <div class="header__nav__item">
+                        <button onclick="location.href='/admin'">管理者ページ</button>
+                    </div>
                     <form action="/admin/logout" method="post" class="header__nav__item">
                         @csrf
                         <button>ログアウト</button>
