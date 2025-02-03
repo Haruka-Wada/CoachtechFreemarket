@@ -8,6 +8,12 @@
 <div class="main__title">
     <h1>ユーザー情報</h1>
 </div>
+<div class="main__mail">
+    <form action="/admin/user/mail/" method="get">
+        <input type="hidden" name="user_id" value="{{ $user->id }}">
+        <button>メールを送信する</button>
+    </form>
+</div>
 <div class="main__contents">
     <div class="main__user-detail">
         <dl class="main__user-detail__text">
@@ -82,7 +88,7 @@
                         <div class="main__user-detail__comment-list__text">
                             <div class="main__user-detail__comment-list__index">
                                 <p>{{ $comment->created_at->format('Y-m-d H:i') }}</p>
-                                <form action="/admin/user/delete" method="post">
+                                <form action="/admin/comment/delete" method="post">
                                     @csrf
                                     <input type="hidden" name="comment_id" value="{{ $comment->id }}">
                                     <button>削除</button>

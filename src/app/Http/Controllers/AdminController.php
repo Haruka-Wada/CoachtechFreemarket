@@ -46,9 +46,16 @@ class AdminController extends Controller
 
         return view('admin.user', compact('user'));
     }
+    //ユーザー削除
+    public function userDelete(Request $request) {
+        $user = User::find($request->user_id);
+        $user->delete();
+
+        return back();
+    }
 
     //コメント削除
-    public function delete(Request $request) {
+    public function commentDelete(Request $request) {
         $comment = Comment::find($request->comment_id);
         $comment->delete();
 

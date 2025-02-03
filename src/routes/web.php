@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MailableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index']);
         Route::post('/logout', [AdminController::class, 'logout']);
         Route::get('/data', [AdminController::class, 'user']);
-        Route::post('/user/delete', [AdminController::class, 'delete']);
+        Route::post('/user/delete', [AdminController::class, 'userDelete']);
+        Route::post('/comment/delete', [AdminController::class, 'commentDelete']);
+        Route::get('/mail', [MailableController::class, 'informationMail']);
+        Route::post('/mail/send', [MailableController::class, 'informationSend']);
+        Route::get('/user/mail', [MailableController::class, 'contactMail']);
+        Route::post('/user/mail/send', [MailableController::class, 'contactSend']);
     });
     Route::get('/login', [AdminController::class, 'loginView'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'login']);

@@ -1,7 +1,22 @@
 .main__title {
     font-size: 36px;
     text-align: center;
-    margin: 80px auto;
+    margin: 50px auto;
+}
+
+.main__mail {
+    width: 30%;
+    margin: 30px auto 50px;
+}
+
+.main__mail button {
+    width: 100%;
+    font-size: 16px;
+    background-color: #ff5555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .main__contents {
@@ -19,7 +34,9 @@
     font-size: 18px;
     text-align: left;
     padding-bottom: 10px;
+    padding-right: 20px;
     border-bottom: 1px solid gray;
+    box-sizing: border-box;
 }
 
 .main__user-table__row {
@@ -29,7 +46,13 @@
 .main__user-table td {
     font-size: 16px;
     padding: 20px 0;
+    padding-right: 20px;
     vertical-align: middle;
+    box-sizing: border-box;
+}
+
+.main__user-table td:nth-last-child(-n+2) {
+    padding-right: 5px;
 }
 
 .main__user-table form {
@@ -43,4 +66,14 @@
     background-color: black;
     color: white;
     cursor: pointer;
+}
+
+.delete-button {
+    background-color: red;
+}
+
+@media screen and (max-width: 768px) {
+    .main__mail {
+        width: 80%;
+    }
 }

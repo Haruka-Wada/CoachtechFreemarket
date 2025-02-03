@@ -1,0 +1,1 @@
+<p>{!! nl2br( $data['message'] ) !!}</p>

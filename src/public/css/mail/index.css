@@ -1,0 +1,80 @@
+.back {
+    width: 80%;
+    height: 50px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.back button {
+    background-color: white;
+    color: #305DFF;
+    border: 1px solid #305DFF;
+    border-radius: 3px;
+    padding: 10px 20px;
+    margin-left: 10px;
+}
+
+.main__container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.main__container p {
+    font-size: 20px;
+    margin: 30px 0 20px;
+}
+
+.main__container input {
+    width: 60%;
+    font-size: 24px;
+    padding: 10px;
+
+}
+
+.main__container textarea {
+    width: 60%;
+    height: 200px;
+    margin-bottom: 30px;
+    font-size: 24px;
+    padding: 10px;
+}
+
+.send__button button {
+    background-color: #305DFF;
+    color: white;
+    border: 1px solid #305DFF;
+    border-radius: 3px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.return__button button {
+    background-color: white;
+    border: none;
+    color: #305DFF;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.message {
+    color: #305DFF;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+@media screen and (max-width:480px) {
+    .main__container input {
+        width: 90%;
+    }
+
+    .main__container textarea {
+        width: 90%;
+    }
+}

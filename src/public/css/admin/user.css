@@ -1,7 +1,22 @@
 .main__title {
     font-size: 36px;
     text-align: center;
-    margin: 80px auto;
+    margin: 50px auto 50px;
+}
+
+.main__mail {
+    width: 30%;
+    margin: 30px auto;
+}
+
+.main__mail button {
+    width: 100%;
+    font-size: 20px;
+    background-color: #ff5555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .main__contents {
@@ -108,6 +123,10 @@
 }
 
 @media screen and (max-width: 768px){
+    .main__mail {
+        width: 80%;
+    }
+
     .main__user-detail__text dt,
     .main__user-detail__text dd {
         font-size: 16px;
