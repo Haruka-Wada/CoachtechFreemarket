@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/stripe.css') }}">
+<link rel="stylesheet" href="{{ asset('css/stripe/stripe.css') }}">
 @endsection
 
 @section('main')
 <div class="main__container">
     <div class="main__text">
-        <p>購入しました！</p>
+        <p>ご購入ありがとうございます！</p>
     </div>
 </div>
 @endsection

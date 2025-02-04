@@ -50,9 +50,35 @@ class StripeController extends Controller
             'success_url' => route('success').'?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('cancel')
         ]);
+
         return redirect($checkout_session->url);
     }
 
+    public function instruction(Request $request) {
+        $item_id = $request->item_id;
+        $post_code = $request->post_code;
+        $address = $request->address;
+        $building = $request->building;
+        $payment = $request->payment;
+
+        $item = Item::find($item_id);
+
+        Order::create([
+            'user_id' => Auth::id(),
+            'item_id' => $item_id,
+            'post_code' => $post_code,
+            'address' => $address,
+            'building' => $building,
+            'price' => $item->price,
+            'payment_status' => 0
+        ]);
+
+        $item->update([
+            'is_purchased' => 1
+        ]);
+
+        return view('stripe.instruction', compact('item_id', 'post_code', 'address', 'building', 'payment'));
+    }
 
     public function success(Request $request) {
         $checkoutSession = $request->user()->stripe()->checkout->sessions->retrieve($request->get('session_id'));
@@ -64,7 +90,8 @@ class StripeController extends Controller
             'post_code' => $checkoutSession->metadata->post_code,
             'address' => $checkoutSession->metadata->address,
             'building' => $checkoutSession->metadata->building,
-            'price' => $checkoutSession->amount_total
+            'price' => $checkoutSession->amount_total,
+            'payment_status' => 1
         ]);
 
         $item->update([

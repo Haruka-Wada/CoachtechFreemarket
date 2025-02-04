@@ -75,6 +75,7 @@
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
                 <input type="hidden" name="post_code" value="{{ Auth::user()->post_code }}">
                 <input type="hidden" name="address" value="{{ Auth::user()->address }}">
+                <input type="hidden" name="building" value="{{ Auth::user()->building }}">
                 <input type="hidden" name="payment" value="">
                 <button class="purchase__button-btn">購入する</button>
             </form>
@@ -90,7 +91,12 @@
             const paymentValue = $('[name=payment] option:selected').val();
             payment.text(selectedPayment);
             $('input[name="payment"]').val(paymentValue);
+
+            if(paymentValue === 'konbini' || paymentValue === 'customer_balance') {
+                $('form').attr('action', '/instruction');
+            }
         })
+
     })
 </script>
 @endsection

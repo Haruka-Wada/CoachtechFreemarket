@@ -33,7 +33,7 @@ class Information extends Mailable
     public function build()
     {
         return $this->view('mail.information_text')
-                    ->subject('CoachtechFreemarketからのお知らせ')
+                    ->subject($this->data['subject'])
                     ->with(['message' => $this->data]);
     }
 }

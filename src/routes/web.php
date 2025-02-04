@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/success', [StripeController::class, 'success'])->name('success');
     Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
     Route::get('/checkout-payment', [StripeController::class, 'checkout'])->name('checkout.session');
+    Route::get('/instruction', [StripeController::class, 'instruction']);
     Route::post('/update', [ItemController::class, 'update']);
 });
 

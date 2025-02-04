@@ -1,1 +1,1 @@
-<p>{!! nl2br( $data['message'] ) !!}</p>
+<p>{!! nl2br(e($data['message'])) !!}</p>

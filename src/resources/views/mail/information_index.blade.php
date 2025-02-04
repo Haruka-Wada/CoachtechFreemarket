@@ -11,6 +11,8 @@
     @endif
     <form action="/admin/mail/send" method="post">
         @csrf
+        <p>件名</p>
+        <input type="text" name="subject" value="coachtechフリマからのお知らせ">
         <p>本文入力</p>
         <textarea name="message">{{ old('message') }}</textarea>
         <div class="send__button">
