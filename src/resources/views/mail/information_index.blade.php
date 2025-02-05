@@ -12,8 +12,18 @@
     <form action="/admin/mail/send" method="post">
         @csrf
         <p>件名</p>
+        <div class="form__error">
+            @error('subject')
+            {{ $message }}
+            @enderror
+        </div>
         <input type="text" name="subject" value="coachtechフリマからのお知らせ">
         <p>本文入力</p>
+        <div class="form__error">
+            @error('message')
+            {{ $message }}
+            @enderror
+        </div>
         <textarea name="message">{{ old('message') }}</textarea>
         <div class="send__button">
             <button>送信する</button>

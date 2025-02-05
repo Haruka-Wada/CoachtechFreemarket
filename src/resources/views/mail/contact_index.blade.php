@@ -12,8 +12,18 @@
     <form action="/admin/user/mail/send" method="post">
         @csrf
         <p>件名</p>
+        <div class="form__error">
+            @error('subject')
+            {{ $message }}
+            @enderror
+        </div>
         <input type="text" name="subject" value="{{ old('subject') }}">
         <p>本文入力</p>
+        <div class="form__error">
+            @error('message')
+            {{ $message }}
+            @enderror
+        </div>
         <textarea name="message">{{ old('message') }}</textarea>
         <input type="hidden" name="user_id" value="{{ $user->id }}">
         <div class="send__button">

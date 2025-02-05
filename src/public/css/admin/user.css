@@ -1,7 +1,50 @@
-.main__title {
+.main__user {
+    width: 80%;
+    max-width: 600px;
+    margin: 50px auto 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: scroll;
+}
+
+.main__user__contents {
+    display: flex;
+    align-items: center;
+}
+
+.main__user__image {
+    width: 150px;
+    height: 150px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.main__user__image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.main__user__profile {
     font-size: 36px;
-    text-align: center;
-    margin: 50px auto 50px;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.main__user__profile p {
+    padding: 5px 0;
+}
+
+.main__user__profile p:nth-last-of-type(-n+3) {
+    font-size: 20px;
+    font-weight: 400;
+    padding: 5px 0 0;
 }
 
 .main__mail {
@@ -19,102 +62,92 @@
     padding: 10px;
 }
 
-.main__contents {
-    width: 90%;
-    margin: 0 auto;
-    overflow-x: scroll;
+.item__tab {
+    height: 40px;
+    border-bottom: 2px solid #5F5F5F;
+    padding: 30px 60px 0;
+    display: flex;
+    list-style: none;
 }
 
-.main__user-detail {
-    width: 100%;
-    margin-bottom: 20px;
+.item__tab li {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 70px;
+    cursor: pointer;
 }
 
-.main__user-detail__text {
-    width: 80%;
-    margin: 0 auto;
+.active {
+    color: #FF5555;
+}
+
+.item__content {
+    display: none;
+}
+
+.item__content.active {
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid gray;
-    border-radius: 4px;
-    min-width: 400px;
-    box-sizing: border-box;
+    margin: 50px 60px;
 }
 
-.main__user-detail__text dt {
-    font-size: 18px;
-    width: 30%;
-    padding: 10px;
-    box-sizing: border-box;
-    border-bottom: 1px solid gray;
-    border-right: 1px solid gray;
-}
-
-.main__user-detail__text dd {
-    width: 70%;
-    font-size: 18px;
-    padding: 10px;
-    box-sizing: border-box;
-    border-bottom: 1px solid gray;
-}
-
-.main__user-detail__sell-list, .main__user-detail__purchase-list {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.main__user-detail__sell-list__item, .main__user-detail__purchase-list__item {
+.main__item {
     width: 50%;
-    padding: 5px 10px;
     display: flex;
-    box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
-.main__user-detail__sell-list__image, .main__user-detail__purchase-list__image {
-    width: 40%;
+.main__item-text {
+    width: 80%;
+    font-size: 20px;
+    color: black;
+    padding: 10px 0;
 }
 
-.main__user-detail__sell-list__item img, .main__user-detail__purchase-list__item img, .main__user-detail__comment-list__item img {
+.main__item-text p {
+    padding-bottom: 5px;
+}
+
+.item__form {
+    width: 60%;
+}
+
+.item__image-button {
     width: 100%;
-    border-radius: 5px;
-}
-
-.main__user-detail__sell-list__item p, .main__user-detail__purchase-list__item p, .main__user-detail__comment-list__item p{
-    font-size: 14px;
-    padding: 5px 10px;
-    overflow-wrap: anywhere;
-}
-
-.main__user-detail__sell-list__button, .main__user-detail__purchase-list__button, .main__user-detail__comment-list__button{
-    padding: 0;
-    background-color: white;
+    height: auto;
     border: none;
-    border-radius: 5px;
-    contain: content;
-
+    background: none;
+    cursor: pointer;
 }
 
-.main__user-detail__comment-list__item {
-    display: flex;
-    width: 100%;
+.item__image-button img {
+    width: 80%;
+    height: 80%;
+    border-radius: 4px;
 }
 
-.main__user-detail__comment-list__image {
-    width: 30%;
+.item__content.active::after {
+    display: block;
+    content: '';
+    flex-grow: 1;
 }
 
-.main__user-detail__comment-list__text {
-    width: 100%;
+.comment-text {
+    width: 90%;
 }
 
-.main__user-detail__comment-list__index{
+.main__item-text__comment {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 16px;
 }
 
-.main__user-detail__comment-list__index button {
+.main__item-text__comment form {
+    padding-bottom: 5px;
+}
+
+.main__item-text__comment button {
     margin: 0 5px;
     background-color: white;
     border: none;
@@ -122,39 +155,92 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width:768px) {
+    .profile__wrapper {
+        display: block;
+    }
+
+    .profile__contents {
+        margin-bottom: 20px;
+    }
+
+    .profile__contents-edit {
+        text-align: center;
+    }
+
     .main__mail {
         width: 80%;
     }
 
-    .main__user-detail__text dt,
-    .main__user-detail__text dd {
+    .item__tab {
+        width: 100%;
+        padding: 0 40px 10px;
+        box-sizing: border-box;
+    }
+
+    .item__tab li {
+        margin-left: 30px;
+        margin-right: 0;
         font-size: 16px;
     }
 
-    .main__user-detail__text {
-        width: 100%;
+    .item__content.active {
+        margin: 50px auto;
+        justify-content: center;
     }
 
-    .main__user-detail__sell-list__item,
-    .main__user-detail__purchase-list__item {
-        width: 100%;
+    .item__content.active::after {
+        display: none;
     }
 
-    .main__user-detail__sell-list__image,
-    .main__user-detail__purchase-list__image {
-        width: 30%;
+    .main__item {
+        width: 90%;
+        margin-bottom: 20px;
     }
+
+    .main__item-text__comment p {
+        width: 50%;
+    }
+
 }
 
 @media screen and (max-width: 480px) {
-    .main__user-detail__text dt,
-    .main__user-detail__text dd {
+    .profile__contents {
+        display: block;
+    }
+
+    .profile__name {
+        margin: 10px 20px;
+    }
+
+    .profile__contents-edit {
+        font-size: 20px;
+    }
+
+    .item__tab {
+        padding: 0 20px 10px;
+    }
+
+    .item__tab li {
+        font-size: 12px;
+        margin: 0 10px;
+    }
+
+    .main__item-text {
         font-size: 14px;
     }
 
-    .main__user-detail__comment-list__index button {
-        margin: 0;
+    .main__item-text__comment {
+        font-size: 14px;
+        display: block;
+    }
+
+    .main__item-text__comment p {
+        width: 100%;
+    }
+
+    .main__item-text__comment button {
         padding: 0;
+        margin: 0;
     }
 }

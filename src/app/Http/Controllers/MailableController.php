@@ -7,6 +7,7 @@ use App\Mail\Information;
 use App\Mail\Contact;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\MailRequest;
 
 class MailableController extends Controller
 {
@@ -14,7 +15,7 @@ class MailableController extends Controller
         return view('mail.information_index');
     }
 
-    public function InformationSend(Request $request) {
+    public function InformationSend(MailRequest $request) {
         $data = $request->all();
         $users = User::all();
         foreach($users as $user) {
@@ -29,7 +30,7 @@ class MailableController extends Controller
         return view('mail.contact_index', compact('user'));
     }
 
-    public function contactSend(Request $request) {
+    public function contactSend(MailRequest $request) {
         $data = $request->all();
         $user = User::find($request->user_id);
 
