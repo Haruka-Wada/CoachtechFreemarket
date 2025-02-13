@@ -156,18 +156,6 @@
 }
 
 @media screen and (max-width:768px) {
-    .profile__wrapper {
-        display: block;
-    }
-
-    .profile__contents {
-        margin-bottom: 20px;
-    }
-
-    .profile__contents-edit {
-        text-align: center;
-    }
-
     .main__mail {
         width: 80%;
     }
@@ -205,18 +193,6 @@
 }
 
 @media screen and (max-width: 480px) {
-    .profile__contents {
-        display: block;
-    }
-
-    .profile__name {
-        margin: 10px 20px;
-    }
-
-    .profile__contents-edit {
-        font-size: 20px;
-    }
-
     .item__tab {
         padding: 0 20px 10px;
     }

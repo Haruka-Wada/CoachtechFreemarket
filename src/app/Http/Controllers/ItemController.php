@@ -8,19 +8,22 @@ use App\Models\Item;
 use App\Models\Favorite;
 use App\Models\Comment;
 use App\Models\Order;
-use Illuminate\Http\Request;
 use App\Http\Requests\SellRequest;
+use App\Http\Requests\CommentRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller {
 
-    public function index() {
+    public function index()
+    {
         $items = Item::all();
 
         return view('index', compact('items'));
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $items = Item::query()
             ->when(request('keyword'), function($query){
                 $query->where('name', 'like', '%' . request('keyword') . '%')
@@ -32,27 +35,29 @@ class ItemController extends Controller {
         return view('index', compact('items'));
     }
 
-    public function mylist() {
+    public function mylist()
+    {
         $favorites = Favorite::where('user_id', Auth::id())->get();
 
         return view('mylist', compact('favorites'));
     }
 
-    //詳細画面
-    public function detail(Request $request) {
+    public function detail(Request $request)
+    {
         $item = Item::withCount(['favorites', 'comments'])->find($request->item_id);
 
         return view('detail', compact('item'));
     }
 
-    //購入画面
-    public function purchase(Request $request) {
+    public function purchase(Request $request)
+    {
         $item = Item::find($request->item_id);
 
         return view('purchase', compact('item'));
     }
 
-    public function favorite(Request $request) {
+    public function favorite(Request $request)
+    {
         $user_id = Auth::id();
         $item_id = $request->item_id;
         $already_liked = Favorite::where('user_id', $user_id)->where('item_id', $item_id)->first();
@@ -74,15 +79,18 @@ class ItemController extends Controller {
         return response()->json($param);
     }
 
-    public function mypage() {
+    public function mypage()
+    {
         $items = Item::all();
         $sell_items = Item::where('user_id', Auth::id())->get();
         $orders = Order::where('user_id', Auth::id())->get();
+
         return view('mypage', compact('items', 'sell_items', 'orders'));
     }
 
     //出品ページ
-    public function sell() {
+    public function sell()
+    {
         $conditions = Condition::all();
         $categories = Category::all();
 
@@ -90,7 +98,8 @@ class ItemController extends Controller {
     }
 
     //出品登録
-    public function store(SellRequest $request) {
+    public function store(SellRequest $request)
+    {
         $image = $request->file('image');
         $path = $image->store('image', 'public');
         $full_path = asset('storage/' . $path);
@@ -111,7 +120,8 @@ class ItemController extends Controller {
     }
 
     //コメントページ
-    public function comment(Request $request) {
+    public function comment(Request $request)
+    {
         $item = Item::withCount(['favorites', 'comments'])->find($request->item_id);
         $comments = Comment::with('user')->where('item_id', $item->id)->get();
 
@@ -119,7 +129,8 @@ class ItemController extends Controller {
     }
 
     //コメント投稿
-    public function post(Request $request) {
+    public function post(CommentRequest $request)
+    {
         Comment::create([
             'comment' => $request->comment,
             'user_id' => Auth::id(),
@@ -130,7 +141,8 @@ class ItemController extends Controller {
     }
 
     //コメント削除
-    public function delete(Request $request) {
+    public function delete(Request $request)
+    {
         Comment::find($request->comment_id)->delete();
 
         return back();

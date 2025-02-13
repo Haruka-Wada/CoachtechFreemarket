@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function address(Request $request) {
+    public function address(Request $request)
+    {
         $item_id = $request->item_id;
         return view('auth.address', compact('item_id'));
     }
 
-    public function update(AddressRequest $request) {
+    public function update(AddressRequest $request)
+    {
         $user = User::find(Auth::id());
         $user->update([
             'post_code' => $request->post_code,
@@ -24,21 +26,29 @@ class UserController extends Controller
             'building' => $request->building
         ]);
         $item_id = $request->item_id;
+
         return redirect(route('item.purchase', [
             'item_id' => $item_id
         ]));
     }
 
-    public function profile() {
+    public function profile()
+    {
         return view('auth.profile');
     }
 
-    public function store(ProfileRequest $request) {
+    public function store(ProfileRequest $request)
+    {
         $user = User::find(Auth::id());
         $thumbnail = $request->file('thumbnail');
-        $path = $thumbnail->store('thumbnail', 'public');
-        $full_path = asset('storage/' . $path);
-        if (Auth::user()->thumbnail) {
+        if(isset($thumbnail)) {
+            $path = $thumbnail->store('thumbnail', 'public');
+            $full_path = asset('storage/' . $path);
+        }else {
+            $full_path = Auth::user()->thumbnail;
+        }
+
+        if (Auth::user()->thumbnail != $full_path) {
             $old_path = basename(Auth::user()->thumbnail);
             Storage::disk('public')->delete('thumbnail/' . $old_path);
         }

@@ -20,6 +20,7 @@
         </div>
     </div>
 </div>
+
 <div class="main__mail">
     <form action="/admin/user/mail/" method="get">
         <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -73,7 +74,7 @@
             @foreach($user->comments as $comment)
             <div class="main__item">
                 <form action="/item/" method="get" class="item__form">
-                    <input type="hidden" name="item_id" value="{{ $order->item->id }}">
+                    <input type="hidden" name="item_id" value="{{ $comment->item->id }}">
                     <button class="item__image-button">
                         <img src="{{ $comment->item->image }}" alt="{{ $comment->item->name }}">
                     </button>

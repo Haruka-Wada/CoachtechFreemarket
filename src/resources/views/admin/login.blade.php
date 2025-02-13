@@ -6,12 +6,13 @@
 
 @section('main')
 <div class="main__title">
-    <h2>管理者ログイン</h2>
+    <h1>管理者ログイン</h1>
+    <div class="form__error">
+        @error('login')
+        {{ $message }}
+        @enderror
+    </div>
 </div>
-
-@if (Auth::guard('administrators')->check())
-<div>ユーザーID {{ Auth::guard('administrators')->user()->userid }}でログイン中</div>
-@endif
 
 <div class="main__contents">
     <form action="/admin/login" method="post">

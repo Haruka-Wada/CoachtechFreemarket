@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\PurchaseRequest;
-use Stripe\Stripe;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Order;
@@ -12,11 +11,13 @@ use Illuminate\Support\Facades\Auth;
 
 class StripeController extends Controller
 {
-    public function checkout(PurchaseRequest $request) {
+    public function checkout(PurchaseRequest $request)
+    {
         $user = User::find(Auth::id());
         $stripeCustomer = $user->createOrGetStripeCustomer();
         $stripe = new \Stripe\StripeClient(config('services.stripe.secret_key'));
         $item = Item::find($request->item_id);
+
         $checkout_session = $stripe->checkout->sessions->create([
             'customer' => $stripeCustomer->id,
             'line_items' => [[
@@ -54,7 +55,8 @@ class StripeController extends Controller
         return redirect($checkout_session->url);
     }
 
-    public function instruction(Request $request) {
+    public function instruction(Request $request)
+    {
         $item_id = $request->item_id;
         $post_code = $request->post_code;
         $address = $request->address;
@@ -80,7 +82,8 @@ class StripeController extends Controller
         return view('stripe.instruction', compact('item_id', 'post_code', 'address', 'building', 'payment'));
     }
 
-    public function success(Request $request) {
+    public function success(Request $request)
+    {
         $checkoutSession = $request->user()->stripe()->checkout->sessions->retrieve($request->get('session_id'));
         $item = Item::find($checkoutSession->metadata->item_id);
 
@@ -101,7 +104,8 @@ class StripeController extends Controller
         return view('stripe.success');
     }
 
-    public function cancel() {
+    public function cancel()
+    {
         return view('stripe.cancel');
     }
 }

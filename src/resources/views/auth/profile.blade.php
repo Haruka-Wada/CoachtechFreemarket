@@ -13,9 +13,7 @@
         @csrf
         <div class="main__img">
             <div class="main__img-thumbnail">
-                @if(Auth::user()->thumbnail)
-                <img src="{{ Auth::user()->thumbnail }}" alt="ユーザーサムネイル">
-                @endif
+                <img id="thumbnail" src="{{ Auth::user()->thumbnail ? Auth::user()->thumbnail : "" }}" alt="">
             </div>
             <div class="main__img-form">
                 <button type="button" class="main__img-form-button">画像を選択する</button>
@@ -60,9 +58,19 @@
 </div>
 
 <script type="text/javascript">
-    console.log(document.querySelector(".main__img-form-button"))
+    //　画像選択ボタンクリック時にファイル選択画面に移行する
     document.querySelector(".main__img-form-button").addEventListener("click", () => {
         document.querySelector(".main__img-form-file").click();
     });
+
+    // ファイル選択後にプレビュー表示する
+    const fileInput = document.querySelector("input[type=file]");
+    fileInput.addEventListener("change", function(e) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            $("#thumbnail").attr('src', e.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    })
 </script>
 @endsection

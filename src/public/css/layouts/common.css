@@ -87,6 +87,7 @@ html {
     background-color: black;
     font-size: clamp(1.1rem, calc(0.6rem + 0.625vw), 1.6rem);
     border: none;
+    cursor: pointer;
 }
 
 .header__nav__sell button {
@@ -96,6 +97,7 @@ html {
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px 15px;
+    cursor: pointer;
 }
 
 .nav-button {

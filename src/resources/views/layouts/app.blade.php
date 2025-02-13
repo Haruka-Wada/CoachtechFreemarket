@@ -41,6 +41,9 @@
                     <div class="header__nav__item">
                         <button onclick="location.href='/mypage'">マイページ</button>
                     </div>
+                    <div class="header__nav__sell">
+                        <button onclick="location.href='/sell'">出品</button>
+                    </div>
                     @else
                     <div class="header__nav__item">
                         <button onclick="location.href='/login'">ログイン</button>
@@ -48,10 +51,10 @@
                     <div class="header__nav__item">
                         <button onclick="location.href='/register'">会員登録</button>
                     </div>
-                    @endif
                     <div class="header__nav__sell">
                         <button onclick="location.href='/sell'">出品</button>
                     </div>
+                    @endif
                 </div>
             </div>
             <button type="button" class="nav-button" onclick="navFunc()">

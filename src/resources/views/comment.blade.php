@@ -15,7 +15,7 @@
     <div class="item__wrapper">
         <div class="item__detail">
             <div class="item__name">
-                <h2>{{ $item->name }}</h2>
+                <h1>{{ $item->name }}</h1>
             </div>
             <div class="item__brand">
                 <p>{{ $item->brand }}</p>
@@ -27,12 +27,12 @@
                 @auth
                 @if(!$item->hasLikedBy(Auth::user()))
                 <div class="item__icon-star">
-                    <img class="like-toggle" src="{{ asset('img/star.png')}}" data-item-id="{{ $item->id }}" alt="お気に入り">
+                    <img class="like-toggle" src="{{ asset('img/star.jpeg')}}" data-item-id="{{ $item->id }}" alt="お気に入り">
                     <p class="item__icon-star__counter">{{ $item->favorites_count }}</p>
                 </div>
                 @else
                 <div class="item__icon-star">
-                    <img class="like-toggle liked" data-item-id="{{ $item->id }}" src="{{ asset('img/yellow_star.png')}}" alt="お気に入り">
+                    <img class="like-toggle liked" data-item-id="{{ $item->id }}" src="{{ asset('img/yellow_star.jpeg')}}" alt="お気に入り">
                     <p class="item__icon-star__counter">{{ $item->favorites_count }}</p>
                 </div>
                 @endif
@@ -42,7 +42,7 @@
                     <form action="/favorite" method="post">
                         @csrf
                         <button>
-                            <img class="item__icon-star__button" src="{{ asset('img/star.png')}}" alt="お気に入り">
+                            <img class="item__icon-star__button" src="{{ asset('img/star.jpeg')}}" alt="お気に入り">
                         </button>
                     </form>
                     <p class="item__icon-star__counter">{{ $item->favorites_count }}</p>
@@ -101,6 +101,11 @@
                     @csrf
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
                     <textarea name="comment" class="comment-form-textarea"></textarea>
+                    <div class="error">
+                        @error('comment')
+                        {{ $message }}
+                        @enderror
+                    </div>
                     <div class="comment-form-button">
                         <button>コメントを送信する</button>
                     </div>

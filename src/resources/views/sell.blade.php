@@ -24,6 +24,9 @@
                 <button type="button" class="upload__button">画像を選択する</button>
                 <input type="file" class="item__data-upload" name="image">
             </div>
+            <div class="item__data-file__preview">
+                <img id="preview" src="" alt="">
+            </div>
         </div>
         <div class="item__contents">
             <div class="item__headline">
@@ -47,7 +50,7 @@
                 <div class="item__data__checkbox-toggle" id="checkbox-toggle">
                     <span>選択してください</span>
                 </div>
-                <div class="item__data__checkboxes" id="checkboxes">
+                <div class="item__data__checkboxes" id="checkboxes" style="display: none;">
                     @foreach($categories as $category)
                     <label class="item__data__checkbox-label">
                         <input type="checkbox" name="category_ids[]" value="{{ $category->id }}" {{ in_array($category->id, (array)old('category_ids')) ? 'checked' : '' }}>
@@ -123,10 +126,22 @@
 </div>
 
 <script type="text/javascript">
+    // 画像選択ボタンクリック時にファイル選択画面へ移行する
     document.querySelector(".upload__button").addEventListener("click", () => {
         document.querySelector(".item__data-upload").click();
     });
 
+    // ファイル選択後のプレビュー表示
+    const fileInput = document.querySelector("input[type=file]");
+    fileInput.addEventListener("change", function(e) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            $("#preview").attr('src', e.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    })
+
+    // カテゴリー選択のチェックボックス表示
     $(function() {
         const checkboxToggle = document.getElementById('checkbox-toggle');
         const checkboxes = document.getElementById('checkboxes')

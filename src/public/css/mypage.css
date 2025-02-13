@@ -81,6 +81,7 @@
 .main__item {
     width: 25%;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .item__form {
@@ -152,7 +153,6 @@
     }
     .main__item {
         width: 50%;
-        margin-bottom: 20px;
     }
 }
 

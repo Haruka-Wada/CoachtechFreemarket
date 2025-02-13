@@ -34,6 +34,7 @@
 .main__item {
     width: 20%;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .sold span {
@@ -77,7 +78,6 @@
 @media screen and (max-width: 768px) {
     .main__item {
         width: 50%;
-        margin-bottom: 20px;
     }
 
     .tab {

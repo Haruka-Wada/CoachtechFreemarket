@@ -13,7 +13,7 @@
             </div>
             <div class="item__detail">
                 <div class="item__detail-name">
-                    <h2>{{ $item->name }}</h2>
+                    <h1>{{ $item->name }}</h1>
                 </div>
                 <div class="item__detail-price">
                     <p>¥{{ number_format($item->price) }}</p>
@@ -23,7 +23,7 @@
         <div class="item__form">
             <input type="hidden" name="item_id" value="{{ $item->id }}">
             <div class="form__label-payment">
-                <p>支払い方法</p>
+                <h2>支払い方法</h2>
                 <select name="payment">
                     <option disabled selected>選択してください</option>
                     <option value="card">クレジットカード</option>
@@ -32,7 +32,7 @@
                 </select>
             </div>
             <div class="form__label-purchase">
-                <p>配送先</p>
+                <h2>配送先</h2>
                 <form action="/purchase/address" method="get">
                     <input type="hidden" method="get" name="item_id" value="{{ $item->id }}">
                     <button>変更する</button>

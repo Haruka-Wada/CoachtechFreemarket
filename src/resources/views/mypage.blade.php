@@ -65,7 +65,6 @@
             $('.item__content').removeClass('active').eq(num).addClass('active')
         })
         $(this).addClass('active').siblings('li').removeClass('active');
-
     })
 </script>
 @endsection

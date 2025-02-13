@@ -41,14 +41,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
     Route::get('/checkout-payment', [StripeController::class, 'checkout'])->name('checkout.session');
     Route::get('/instruction', [StripeController::class, 'instruction']);
-    Route::post('/update', [ItemController::class, 'update']);
 });
 
 Route::prefix('admin')->group(function () {
     Route::middleware('auth:administrators')->group(function () {
         Route::get('/', [AdminController::class, 'index']);
         Route::post('/logout', [AdminController::class, 'logout']);
-        Route::get('/data', [AdminController::class, 'user']);
+        Route::get('/data', [AdminController::class, 'data']);
         Route::post('/user/delete', [AdminController::class, 'userDelete']);
         Route::post('/comment/delete', [AdminController::class, 'commentDelete']);
         Route::get('/mail', [MailableController::class, 'informationMail']);

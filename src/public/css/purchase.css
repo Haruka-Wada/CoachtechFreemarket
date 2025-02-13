@@ -35,7 +35,7 @@
     margin: 0 30px;
 }
 
-.form__label-payment p {
+.form__label-payment h2, .form__label-purchase h2{
     font-size: 24px;
     font-weight: bold;
     margin: 30px 0;
@@ -46,18 +46,13 @@
     height: 30px;
     font-size: 16px;
     margin: 0 30px;
+    cursor: pointer;
 }
 
 .form__label-purchase {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.form__label-purchase p {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 30px 0;
 }
 
 .form__address p {
@@ -72,6 +67,7 @@
     color: #0073CC;
     font-size: 20px;
     margin-right: 40px;
+    cursor: pointer;
 }
 
 .purchase__wrapper {
@@ -116,6 +112,7 @@
     border: none;
     border-radius: 4px;
     margin: 40px 0;
+    cursor: pointer;
 }
 
 .error {
@@ -150,7 +147,7 @@
         align-items: center;
     }
 
-    .form__label-payment p {
+    .form__label-payment h2 {
         width: 40%;
         margin: 0;
     }
@@ -160,7 +157,7 @@
         margin: 0;
     }
 
-    .form__label-purchase p {
+    .form__label-purchase h2 {
         width: 40%;
         margin: 30px 0 10px;
     }
@@ -206,7 +203,7 @@
         display: block;
     }
 
-    .form__label-payment p {
+    .form__label-payment h2 {
         width: 80%;
         margin-bottom: 10px;
     }

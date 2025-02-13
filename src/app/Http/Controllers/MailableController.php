@@ -11,26 +11,32 @@ use App\Http\Requests\MailRequest;
 
 class MailableController extends Controller
 {
-    public function InformationMail() {
+    public function InformationMail()
+    {
         return view('mail.information_index');
     }
 
-    public function InformationSend(MailRequest $request) {
+    public function InformationSend(MailRequest $request)
+    {
         $data = $request->all();
         $users = User::all();
-        foreach($users as $user) {
+        foreach($users as $user)
+        {
             Mail::to($user)->send(new Information($data));
         }
+
         return back()->with('sent', '送信完了しました');
     }
 
-    public function contactMail(Request $request) {
+    public function contactMail(Request $request)
+    {
         $user = User::find($request->user_id);
 
         return view('mail.contact_index', compact('user'));
     }
 
-    public function contactSend(MailRequest $request) {
+    public function contactSend(MailRequest $request)
+    {
         $data = $request->all();
         $user = User::find($request->user_id);
 
