@@ -14,7 +14,7 @@ class AddPaymentStatusToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->boolean('payment_status')->comment('0:未決済 1:決済済み');
+            $table->string('payment_status');
         });
     }
 

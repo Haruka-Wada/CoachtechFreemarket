@@ -43,6 +43,7 @@ class StripeController extends Controller
                     ],
                 ],
             'metadata' => [
+                'user_id' => Auth::id(),
                 'item_id' => $request->item_id,
                 'post_code' => $request->post_code,
                 'address' => $request->address,
@@ -72,7 +73,7 @@ class StripeController extends Controller
             'address' => $address,
             'building' => $building,
             'price' => $item->price,
-            'payment_status' => 0
+            'payment_status' => 'unpaid'
         ]);
 
         $item->update([
@@ -84,23 +85,6 @@ class StripeController extends Controller
 
     public function success(Request $request)
     {
-        $checkoutSession = $request->user()->stripe()->checkout->sessions->retrieve($request->get('session_id'));
-        $item = Item::find($checkoutSession->metadata->item_id);
-
-        Order::create([
-            'user_id' => Auth::id(),
-            'item_id' => $checkoutSession->metadata->item_id,
-            'post_code' => $checkoutSession->metadata->post_code,
-            'address' => $checkoutSession->metadata->address,
-            'building' => $checkoutSession->metadata->building,
-            'price' => $checkoutSession->amount_total,
-            'payment_status' => 1
-        ]);
-
-        $item->update([
-            'is_purchased' => 1
-        ]);
-
         return view('stripe.success');
     }
 

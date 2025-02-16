@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MailableController;
+use App\Http\Controllers\WebhookController;
+use Stripe\Webhook;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,7 @@ Route::get('/', [ItemController::class, 'index']);
 Route::get('/search', [ItemController::class, 'search']);
 Route::get('/item/comment/{item_id?}', [ItemController::class, 'comment']);
 Route::get('/item/{item_id?}', [ItemController::class, 'detail']);
+Route::post('/webhook', [WebhookController::class, 'webhook']);
 
 
 Route::middleware('auth')->group(function () {
