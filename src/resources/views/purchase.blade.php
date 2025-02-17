@@ -91,10 +91,6 @@
             const paymentValue = $('[name=payment] option:selected').val();
             payment.text(selectedPayment);
             $('input[name="payment"]').val(paymentValue);
-
-            if(paymentValue === 'konbini' || paymentValue === 'customer_balance') {
-                $('form').attr('action', '/instruction');
-            }
         })
 
     })

@@ -56,34 +56,7 @@ class StripeController extends Controller
         return redirect($checkout_session->url);
     }
 
-    public function instruction(Request $request)
-    {
-        $item_id = $request->item_id;
-        $post_code = $request->post_code;
-        $address = $request->address;
-        $building = $request->building;
-        $payment = $request->payment;
-
-        $item = Item::find($item_id);
-
-        Order::create([
-            'user_id' => Auth::id(),
-            'item_id' => $item_id,
-            'post_code' => $post_code,
-            'address' => $address,
-            'building' => $building,
-            'price' => $item->price,
-            'payment_status' => 'unpaid'
-        ]);
-
-        $item->update([
-            'is_purchased' => 1
-        ]);
-
-        return view('stripe.instruction', compact('item_id', 'post_code', 'address', 'building', 'payment'));
-    }
-
-    public function success(Request $request)
+    public function success()
     {
         return view('stripe.success');
     }

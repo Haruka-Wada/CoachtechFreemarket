@@ -31,7 +31,7 @@
 <div class="item__wrapper">
     <ul class="item__tab" id="tab_control">
         <li class="active">出品した商品</li>
-        <li>購入した商品</li>
+        <li>注文した商品</li>
         <li>コメント一覧</li>
     </ul>
     <div class="item__contents" id="tabbody">
@@ -66,6 +66,21 @@
                 <div class="main__item-text">
                     <p>{{ $order->item->name }}</p>
                     <p>¥{{ number_format($order->item->price) }}</p>
+                    @if($order->payment_method_types === 'card')
+                    <p>クレジットカード</p>
+                    @elseif($order->payment_method_types === 'konbini')
+                    <p>コンビニ</p>
+                    @else
+                    <p>銀行振込</p>
+                    @endif
+                    @if($order->payment_status === 'paid')
+                    <p>決済済み</p>
+                    @elseif($order->payment_status === 'unpaid')
+                    <p>決済待ち</p>
+                    @else
+                    <p>有効期限切れ</p>
+                    <p>未購入</p>
+                    @endif
                 </div>
             </div>
             @endforeach

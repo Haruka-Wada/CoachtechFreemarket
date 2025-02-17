@@ -83,8 +83,8 @@ class ItemController extends Controller {
     {
         $items = Item::all();
         $sell_items = Item::where('user_id', Auth::id())->get();
-        $orders = Order::where('user_id', Auth::id())->get();
-
+        $orders = Order::where('user_id', Auth::id())
+                        ->where('payment_status', '!=', 'expired')->get();
         return view('mypage', compact('items', 'sell_items', 'orders'));
     }
 

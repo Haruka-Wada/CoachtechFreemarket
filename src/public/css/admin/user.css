@@ -204,6 +204,7 @@
 
     .main__item-text {
         font-size: 14px;
+        padding: 0;
     }
 
     .main__item-text__comment {

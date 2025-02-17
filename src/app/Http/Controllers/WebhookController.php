@@ -13,7 +13,8 @@ use App\Models\Order;
 
 class WebhookController extends Controller
 {
-    public function webhook() {
+    public function webhook()
+    {
         Stripe::setApiKey(config('services.stripe.secret_key'));
         $endpoint_secret = config('services.stripe.webhook_key');
 
@@ -47,34 +48,34 @@ class WebhookController extends Controller
         http_response_code(200);
     }
 
-    //カード決済の場合
-    public function handleCheckoutSessionCompleted($session) {
-        if($session->payment_status === 'paid') {
-            $item_id = $session->metadata->item_id;
-            $item = Item::find($item_id);
+    //決済時のチェックアウトセッション完了
+    public function handleCheckoutSessionCompleted($session)
+    {
+        $item_id = $session->metadata->item_id;
+        $item = Item::find($item_id);
 
-            Order::create([
-                'user_id' => $session->metadata->user_id,
-                'item_id' => $session->metadata->item_id,
-                'post_code' => $session->metadata->post_code,
-                'address' => $session->metadata->address,
-                'building' => $session->metadata->building,
-                'price' => $session->amount_total,
-                'payment_status' => $session->payment_status
-            ]);
+        Order::create([
+            'user_id' => $session->metadata->user_id,
+            'item_id' => $session->metadata->item_id,
+            'post_code' => $session->metadata->post_code,
+            'address' => $session->metadata->address,
+            'building' => $session->metadata->building,
+            'price' => $session->amount_total,
+            'payment_status' => $session->payment_status,
+            'payment_method_types' => reset($session->payment_method_types)
+        ]);
 
-            $item->update([
-                'is_purchased' => 1
-            ]);
-        }
+        $item->update([
+            'is_purchased' => 1
+        ]);
     }
 
-    //コンビニ決済、銀行決済の場合
+    //コンビニ決済、銀行決済（決済完了）
     public function handleCheckoutSessionAsyncPaymentSucceeded($session) {
         if($session->payment_status === 'paid') {
             $item_id = $session->metadata->item_id;
             $order = Order::where('item_id', $item_id)
-                    ->where('payment_status', 'unpaid')->get();
+                    ->where('payment_status', 'unpaid')->first();
 
             $order->update([
                 'payment_status' => $session->payment_status
@@ -82,11 +83,11 @@ class WebhookController extends Controller
         }
     }
 
-    //コンビニ決済、銀行決済の有効期限切れの場合
+    //セッションの有効期限切れ
     public function handleCheckoutSessionExpired($session) {
         $item_id = $session->metadata->item_id;
         $order = Order::where('item_id', $item_id)
-                ->where('payment_status', 'unpaid')->get();
+                ->where('payment_status', 'unpaid')->first();
 
         $order->update([
             'payment_status' => $session->status
