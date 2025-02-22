@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use Stripe\Exception\SignatureVerificationException;
 use Stripe\Exception\UnexpectedValueException;
 use Stripe\Stripe;
@@ -40,15 +38,15 @@ class WebhookController extends Controller
         }elseif($event->type == 'checkout.session.async_payment_succeeded') {
             $session = $event->data->object;
             $this->handleCheckoutSessionAsyncPaymentSucceeded($session);
-        }elseif($event->type == 'checkout.session.expired') {
+        }elseif($event->type == 'checkout.session.async_payment_failed') {
             $session = $event->data->object;
-            $this->handleCheckoutSessionExpired($session);
+            $this->handleCheckoutSessionAsyncPaymentFailed($session);
         }
 
         http_response_code(200);
     }
 
-    //決済時のチェックアウトセッション完了
+    //決済時のチェックアウトセッション完了(クレジットカード決済完了、コンビニ支払い・銀行振込の決済待ち)
     public function handleCheckoutSessionCompleted($session)
     {
         $item_id = $session->metadata->item_id;
@@ -83,17 +81,18 @@ class WebhookController extends Controller
         }
     }
 
-    //セッションの有効期限切れ
-    public function handleCheckoutSessionExpired($session) {
+    //有効期限切れ、またはその他の理由による支払いの失敗
+    public function handleCheckoutSessionAsyncPaymentFailed($session) {
         $item_id = $session->metadata->item_id;
         $order = Order::where('item_id', $item_id)
                 ->where('payment_status', 'unpaid')->first();
 
         $order->update([
-            'payment_status' => $session->status
+            'payment_status' => 'failed'
         ]);
 
-        $order->item->update([
+        $item = $order->item();
+        $item->update([
             'is_purchased' => 0
         ]);
     }

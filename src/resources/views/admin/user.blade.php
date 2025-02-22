@@ -37,7 +37,7 @@
     <div class="item__contents" id="tabbody">
         <div class="item__content active">
             @foreach($user->items as $item)
-            <div class="main__item">
+            <div class="main__item" data-purchased="{{ $item->is_purchased }}">
                 <form action="/item/" method="get" class="item__form">
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
                     <button class="item__image-button">
@@ -56,7 +56,7 @@
         </div>
         <div class="item__content">
             @foreach($user->orders as $order)
-            <div class="main__item">
+            <div class="main__item" data-purchased="{{ $order->item->is_purchased }}">
                 <form action="/item/" method="get" class="item__form">
                     <input type="hidden" name="item_id" value="{{ $order->item->id }}">
                     <button class="item__image-button">
@@ -77,10 +77,10 @@
                     <p>決済済み</p>
                     @elseif($order->payment_status === 'unpaid')
                     <p>決済待ち</p>
-                    @else
-                    <p>有効期限切れ</p>
-                    <p>未購入</p>
+                    @elseif($order->payment_status === 'failed')
+                    <p>決済失敗</p>
                     @endif
+                    <p>{{ $order->updated_at->format('y/m/d H:i') }}</p>
                 </div>
             </div>
             @endforeach
@@ -111,6 +111,7 @@
     </div>
 </div>
 
+<script src="{{ asset('js/purchased.js') }}"></script>
 <script type="text/javascript">
     $(function() {
         $('.item__tab li').click(function() {

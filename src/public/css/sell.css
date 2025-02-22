@@ -80,11 +80,14 @@
     box-sizing: border-box;
     border: 1px solid #5F5F5F;
     border-radius: 4px;
-    padding: 0 10px;
+    padding-left: 10px;
+    padding-right: 30px;
     font-size: 14px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     cursor: pointer;
+    overflow: auto;
 }
 
 .item__data__checkbox-toggle::after {
@@ -97,6 +100,10 @@
     border-right: 1px solid #5F5F5F;
     border-bottom: 1px solid #5F5F5F;
     transform: rotate(45deg);
+}
+
+.item__data__checkbox-toggle span {
+    margin-right: 10px;
 }
 
 .item__data__checkboxes {

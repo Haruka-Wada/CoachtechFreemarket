@@ -20,7 +20,7 @@ use Stripe\Webhook;
 |
 */
 
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index'])->name('item.index');
 Route::get('/search', [ItemController::class, 'search']);
 Route::get('/item/comment/{item_id?}', [ItemController::class, 'comment']);
 Route::get('/item/{item_id?}', [ItemController::class, 'detail']);
@@ -28,7 +28,7 @@ Route::post('/webhook', [WebhookController::class, 'webhook']);
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/mylist', [ItemController::class, 'mylist']);
+    Route::get('/mylist', [ItemController::class, 'mylist'])->name('item.mylist');
     Route::get('/purchase/address/{item_id?}', [UserController::class, 'address']);
     Route::post('/purchase/address', [UserController::class, 'update']);
     Route::get('/purchase/{item_id?}', [ItemController::class, 'purchase'])->name('item.purchase');

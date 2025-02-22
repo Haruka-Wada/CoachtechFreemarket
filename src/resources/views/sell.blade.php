@@ -54,7 +54,7 @@
                     @foreach($categories as $category)
                     <label class="item__data__checkbox-label">
                         <input type="checkbox" name="category_ids[]" value="{{ $category->id }}" {{ in_array($category->id, (array)old('category_ids')) ? 'checked' : '' }}>
-                        <span>{{ $category->name }}</span>
+                        <p>{{ $category->name }}</p>
                     </label>
                     @endforeach
                 </div>
@@ -139,20 +139,41 @@
             $("#preview").attr('src', e.target.result);
         }
         reader.readAsDataURL(e.target.files[0]);
-    })
+    });
 
     // カテゴリー選択のチェックボックス表示
     $(function() {
         const checkboxToggle = document.getElementById('checkbox-toggle');
-        const checkboxes = document.getElementById('checkboxes')
+        const checkboxes = document.getElementById('checkboxes');
         checkboxToggle.addEventListener('click', function() {
             if (checkboxes.style.display == "none") {
                 checkboxes.style.display = 'flex';
             } else {
                 checkboxes.style.display = 'none';
             }
+        });
+    });
+
+    //　カテゴリーチェック時の表示
+    $(function() {
+        var label;
+        $('input[type="checkbox"]').on("change", function() {
+            $("span:contains(選択してください)").remove();
+            label = $(this).next().text();
+            if ($(this).is(":checked")) {
+                $("#checkbox-toggle").append("<span>" + label + "</span>");
+            } else {
+                $("span:contains(" + label + ")").remove();
+            }
         })
-    })
+    });
+
+    $('input:checked').each(function() {
+        let label = $(this).next().text();
+        console.log(label);
+        $("span:contains(選択してください)").remove();
+        $("#checkbox-toggle").append("<span>" + label + " </span>");
+    });
 </script>
 
 @endsection

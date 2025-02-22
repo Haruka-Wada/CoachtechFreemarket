@@ -59,41 +59,76 @@ Stripeを利用して商品を購入することができます。
 2. `composer install`
 3. 「.env.example」ファイルを「.env」ファイルに名称変更。または、新しく「.env」ファイルを作成  
 4. .envに以下の環境変数を追加
-```text
-DB_CONNECTION=mysql  
-DB_HOST=mysql  
-DB_PORT=3306  
-DB_DATABASE=laravel_db  
-DB_USERNAME=laravel_user  
-DB_PASSWORD=laravel_pass  
+   ```text
+   DB_CONNECTION=mysql  
+   DB_HOST=mysql  
+   DB_PORT=3306  
+   DB_DATABASE=laravel_db  
+   DB_USERNAME=laravel_user  
+   DB_PASSWORD=laravel_pass  
 
-MAIL_MAILER=smtp
-MAIL_HOST=mailhog
-MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS="coachtech-freemarket@example.com"
-MAIL_FROM_NAME="${APP_NAME}"
-  ```
+   MAIL_MAILER=smtp
+   MAIL_HOST=mailhog
+   MAIL_PORT=1025
+   MAIL_USERNAME=null
+   MAIL_PASSWORD=null
+   MAIL_ENCRYPTION=null
+   MAIL_FROM_ADDRESS="coachtech-freemarket@example.com"
+   MAIL_FROM_NAME="${APP_NAME}"
+    ```
 5. アプリケーションキーの作成
-```bash
-php artisan key:generate
-```
+   ```bash
+   php artisan key:generate
+   ```
 6. マイグレーションの実行
-```bash
-php artisan migrate
-```
+   ```bash
+   php artisan migrate
+   ```
 7. シーディングの実行
-```bash
-php artisan db:seed
-```
+   ```bash
+   php artisan db:seed
+   ```
 8. その他  
  ストレージに保存した画像を表示するには、シンボリックリンクが必要です。  
  下記コマンドで/src/public内にシンボリックリンクが作成され、画像の表示が可能となります。
-```bash
-php artisan link:storage
-```
+   ```bash
+   php artisan link:storage
+   ```
+**決済機能**  
+* 環境変数の追加  
+ 決済機能はStripeを使用しています。StripeのAPIキーを.envファイルに追加してください。
+  ```text
+  STRIPE_PUBLIC=Stripe APIキーの公開可能キーを追加する  
+  STRIPE_SECRET=Stripe APIキーのシークレットキーを追加する  
+  ```
+* Webhookの連携  
+  コンビニ決済や銀行振込では、商品購入時と決済完了時のタイミングが異なるため、Webhookを使用しデータベースの更新をしています。  
+  Stripeは、ローカル環境ではWebhookでイベント受信ができません。ローカル環境でもWebhookでイベントを受信するためにStripe CLIのインストールが必要です。  
+1. Stripe CLIのインストール  
+  homebrew以外でインストールする場合は、[公式サイト](https://docs.stripe.com/stripe-cli?install-method=homebrew)を参考にしてください。
+    ```zsh
+    brew install stripe/stripe-cli/stripe　
+    ```
+2. CLIにログインする  
+    ```zsh
+    stripe login
+    ```
+   上記コマンド入力後に、ターミナルに表示されているリンク先へ移動し、Enterキーを押してアクセスを許可してください。  
+3. ローカルエンドポイントにイベントを転送する  
+   ```stripe
+   stripe listen --events checkout.session.completed,checkout.session.async_payment_succeeded,checkout.session.async_payment_failed --forward-to localhost/webhook
+   ```
+   上記コマンド入力後、ターミナルに"whsec_"から始まるシークレットキーが表示されるため、.envファイルに追加してください。
+   ```text
+   STRIPE_WEBHOOK_SECRET = Webhookのシークレットキーを追加する  
+   ```
+4. Stripeにログインしているターミナルとは別のターミナルを開き、キャッシュをクリアする  
+   ```bash
+   php artisan config:clear
+   ```
+   以上で、Webhookでのイベント受信が可能となり、データベースが更新されます。  
+   Stripeのテスト環境では、クレジットカード決済は即時決済、コンビニ決済はコンビニでの振込方法が表示されてから約3分後に決済完了、  
+   銀行振込はStripeのダッシュボードから「顧客＞該当ユーザー選択＞支払い方法＞現金残高に資金を追加」で購入金額分の残高を追加することで決済完了するようになっています。
 
 ## アプリケーションURL
 * 開発環境 : http://localhost/  
@@ -113,7 +148,7 @@ php artisan link:storage
   ```
 * 管理者ページ　: http://localhost/admin  
 シーディングでテストユーザーを登録しています。
-  ```text
+  ```
   名前 : admin001  
   メールアドレス : admin001@example.com  
   パスワード : pass0001

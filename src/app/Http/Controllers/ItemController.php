@@ -15,14 +15,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller {
 
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::all();
-
+        if($request->session()->has('items')) {
+            $items = $request->session()->get('items');
+        } else {
+            $items = Item::all();
+        }
         return view('index', compact('items'));
     }
 
-    public function search(Request $request)
+    public function search()
     {
         $items = Item::query()
             ->when(request('keyword'), function($query){
@@ -32,12 +35,27 @@ class ItemController extends Controller {
                     });
             })->get();
 
-        return view('index', compact('items'));
+        $previousUrl = url()->previous();
+        if(preg_match('/mylist/', $previousUrl)) {
+            return redirect ('/mylist')->with('items', $items);
+        }else {
+            return redirect('/')->with('items', $items);
+        }
     }
 
-    public function mylist()
+    public function mylist(Request $request)
     {
-        $favorites = Favorite::where('user_id', Auth::id())->get();
+        if($request->session()->has('items')) {
+            $items = $request->session()->get('items');
+            $item_ids = [];
+            foreach($items as $item) {
+                array_push($item_ids, $item->id);
+            }
+            $favorites = Favorite::where('user_id', Auth::id())
+                        ->whereIn('item_id', $item_ids)->get();
+        } else {
+            $favorites = Favorite::where('user_id', Auth::id())->get();
+        }
 
         return view('mylist', compact('favorites'));
     }
